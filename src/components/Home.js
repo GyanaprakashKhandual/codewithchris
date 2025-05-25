@@ -1,17 +1,17 @@
 import { motion } from 'framer-motion';
-import { 
-  FaGithub, 
-  FaEnvelope, 
-  FaLinkedin, 
+import {
+  FaGithub,
+  FaEnvelope,
+  FaLinkedin,
   FaFileDownload,
   FaInstagram,
   FaFacebook,
   FaCode
 } from 'react-icons/fa';
-import { 
-  FiCode, 
-  FiDatabase, 
-  FiCpu, 
+import {
+  FiCode,
+  FiDatabase,
+  FiCpu,
   FiShield,
   FiCheckCircle
 } from 'react-icons/fi';
@@ -79,7 +79,7 @@ export default function HomePage() {
           transition={{ delay: 0.6, duration: 1 }}
           className="text-xl text-white/80 mb-10 mx-auto"
         >
-          Building digital solutions that solve real-world problems with maintaining the quality and integreated with AI 
+          Building digital solutions that solve real-world problems with maintaining the quality and integreating with AI
         </motion.p>
 
         <motion.div
