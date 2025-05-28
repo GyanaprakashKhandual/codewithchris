@@ -1,10 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { FaGraduationCap, FaUniversity, FaSchool, FaLaptopCode, FaChartLine} from 'react-icons/fa';
+import { FaGraduationCap, FaUniversity, FaSchool, FaLaptopCode, FaChartLine } from 'react-icons/fa';
 import { SiGoogle, SiUdemy } from 'react-icons/si';
 
 const educationData = [
-  // Formal Education
   {
     degree: 'Quality Assurance Engineering',
     institution: 'Masai School',
@@ -35,7 +34,6 @@ const educationData = [
     icon: <FaSchool className="w-6 h-6" />,
     type: 'formal'
   },
-  // Future Education
   {
     degree: 'Master of Computer Applications',
     institution: 'IGNOU University',
@@ -50,7 +48,6 @@ const educationData = [
     icon: <FaChartLine className="w-6 h-6" />,
     type: 'future'
   },
-  // Certifications
   {
     degree: 'Cyber Security Professional',
     institution: 'Google Certification',
@@ -69,87 +66,87 @@ const educationData = [
     degree: 'AI and Machine Learning',
     institution: 'Google Certifications',
     year: '2025 - 2026',
-    icon: <SiGoogle className='w-6 h-6'/>,
+    icon: <SiGoogle className='w-6 h-6' />,
     type: 'certification'
   }
 ];
 
+const typeColors = {
+  professional: {
+    bg: 'bg-lime-500/10',
+    border: 'border-lime-400/30',
+    text: 'text-lime-300',
+    badge: 'bg-lime-600 text-white'
+  },
+  future: {
+    bg: 'bg-purple-500/10',
+    border: 'border-purple-400/30',
+    text: 'text-purple-300',
+    badge: 'bg-purple-600 text-white'
+  },
+  certification: {
+    bg: 'bg-blue-500/10',
+    border: 'border-blue-400/30',
+    text: 'text-blue-300',
+    badge: 'bg-blue-600 text-white'
+  },
+  formal: {
+    bg: 'bg-gray-700/30',
+    border: 'border-gray-500/30',
+    text: 'text-gray-300',
+    badge: 'bg-gray-600 text-white'
+  }
+};
+
 const EducationSection = () => {
   return (
-    <div className="py-12 px-4 sm:px-6 lg:px-8 max-w-9xl mx-auto">
-      <motion.h2 
-        initial={{ opacity: 0, y: -20 }}
+    <div className="py-16 mt-8 px-4 sm:px-8 lg:px-16 bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800 min-h-screen">
+      <motion.h2
+        initial={{ opacity: 0, y: -40 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-3xl font-bold text-center mb-12 text-gray-800"
+        transition={{ duration: 0.6 }}
+        className="text-4xl sm:text-5xl font-extrabold text-center text-white mb-14"
       >
-        My <span className="text-lime-600">Education Journey</span>
+        My <span className="text-lime-400">Education Journey</span>
       </motion.h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {educationData.map((edu, index) => (
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className={`relative overflow-hidden rounded-xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:-translate-y-1 ${
-              edu.type === 'professional' ? 'bg-gradient-to-br from-lime-500/10 to-emerald-500/10 border-lime-400/30' :
-              edu.type === 'future' ? 'bg-gradient-to-br from-purple-500/10 to-indigo-500/10 border-purple-400/30' :
-              edu.type === 'certification' ? 'bg-gradient-to-br from-blue-500/10 to-cyan-500/10 border-blue-400/30' :
-              'bg-gradient-to-br from-gray-100 to-gray-200 border-gray-300/30'
-            } border`}
-          >
-            {/* Decorative corner */}
-            <div className={`absolute top-0 right-0 w-16 h-16 overflow-hidden`}>
-              <div className={`absolute top-0 right-0 w-32 h-32 rotate-45 transform origin-bottom-left ${
-                edu.type === 'professional' ? 'bg-lime-500/20' :
-                edu.type === 'future' ? 'bg-purple-500/20' :
-                edu.type === 'certification' ? 'bg-blue-500/20' :
-                'bg-gray-400/20'
-              }`} />
-            </div>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        {educationData.map((edu, index) => {
+          const style = typeColors[edu.type] || typeColors.formal;
 
-            <div className="relative z-10 flex items-start gap-4">
-              <div className={`p-3 rounded-lg ${
-                edu.type === 'professional' ? 'bg-lime-500/20 text-lime-600' :
-                edu.type === 'future' ? 'bg-purple-500/20 text-purple-600' :
-                edu.type === 'certification' ? 'bg-blue-500/20 text-blue-600' :
-                'bg-gray-500/20 text-gray-600'
-              }`}>
-                {edu.icon}
+          return (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, scale: 0.9 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              viewport={{ once: true }}
+              className={`relative border ${style.border} rounded-2xl p-6 shadow-lg backdrop-blur-sm hover:shadow-2xl transform transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] ${style.bg}`}
+            >
+              <div className="absolute top-0 right-0 w-16 h-16 overflow-hidden">
+                <div className="absolute top-0 right-0 w-32 h-32 rotate-45 transform origin-bottom-left bg-white/5" />
               </div>
-              
-              <div className="flex-1">
-                <h3 className="text-lg font-semibold text-gray-800">{edu.degree}</h3>
-                <p className={`mt-1 text-sm ${
-                  edu.type === 'professional' ? 'text-lime-700' :
-                  edu.type === 'future' ? 'text-purple-700' :
-                  edu.type === 'certification' ? 'text-blue-700' :
-                  'text-gray-700'
-                }`}>{edu.institution}</p>
-                
-                {edu.board && (
-                  <p className="text-xs text-gray-500 mt-1">{edu.board}</p>
-                )}
-                
-                <div className={`mt-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                  edu.type === 'professional' ? 'bg-lime-100 text-lime-800' :
-                  edu.type === 'future' ? 'bg-purple-100 text-purple-800' :
-                  edu.type === 'certification' ? 'bg-blue-100 text-blue-800' :
-                  'bg-gray-100 text-gray-800'
-                }`}>
-                  {edu.year}
+
+              <div className="relative z-10 flex items-start gap-4">
+                <div className={`p-4 rounded-xl shadow-inner ${style.badge}`}>
+                  {edu.icon}
                 </div>
-                
-                {edu.type === 'future' && (
-                  <span className="ml-2 text-xs text-purple-600">(Planned)</span>
-                )}
+
+                <div className="flex-1">
+                  <h3 className="text-lg sm:text-xl font-semibold text-white">{edu.degree}</h3>
+                  <p className={`mt-1 text-sm ${style.text}`}>{edu.institution}</p>
+                  {edu.board && <p className="text-xs text-gray-400 mt-1">{edu.board}</p>}
+                  <div className={`mt-2 inline-block px-3 py-1 rounded-full text-xs font-medium ${style.badge}`}>
+                    {edu.year}
+                  </div>
+                  {edu.type === 'future' && (
+                    <span className="ml-2 text-xs text-purple-400">(Planned)</span>
+                  )}
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );

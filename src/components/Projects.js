@@ -1,6 +1,5 @@
-// ProjectList.js
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { FaLaptopCode, FaSearch, FaFilter } from 'react-icons/fa';
 import { FileText, Wrench, ExternalLink } from 'lucide-react';
 
@@ -31,41 +30,78 @@ const projects = [
 const uniqueTypes = ['All', ...new Set(projects.map((p) => p.type))];
 const uniqueTechs = ['All', ...new Set(projects.map((p) => p.techStack))];
 
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+      when: "beforeChildren"
+    }
+  }
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5 }
+  }
+};
+
 function ProjectShowcaseCard({ project, showTooltip, setHovered }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      variants={itemVariants}
       whileHover={{ scale: 1.03 }}
       onMouseEnter={() => setHovered(project.projectName)}
       onMouseLeave={() => setHovered(null)}
-      className="relative w-full px-12  py-12 p-6 bg-gradient-to-r from-sky-300 via-orange-200 to-pink-300 rounded-2xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 text-gray-800"
+      className="relative w-full h-full p-6 rounded-2xl border border-white/20 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
+      style={{
+        background: 'linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%)',
+        backdropFilter: 'blur(10px)'
+      }}
     >
+      {/* Gradient background overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/10 via-purple-500/10 to-blue-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+      
+      {/* Glow effect */}
+      <div className="absolute inset-0 bg-gradient-to-br from-pink-500/20 via-purple-500/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-20 blur-md" />
+
       {showTooltip && (
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full mt-2 px-4 py-2 bg-white text-gray-700 text-sm rounded-lg border border-gray-200 shadow-lg z-50 w-72 text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-full mt-2 px-4 py-2 bg-gray-900 text-white text-sm rounded-lg border border-gray-700 shadow-xl z-50 w-72 text-center"
+        >
           {project.description}
-        </div>
+          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 translate-y-1 w-3 h-3 bg-gray-900 rotate-45 border-r border-b border-gray-700" />
+        </motion.div>
       )}
 
       <div className="flex flex-col h-full">
         <div className="flex items-center gap-3 mb-4">
-          <div className="p-2 bg-blue-100 rounded-lg">
-            <FaLaptopCode className="w-6 h-6 text-blue-600" />
-          </div>
-          <h2 className="text-xl font-bold text-gray-800">
+          <motion.div 
+            whileHover={{ rotate: 15 }}
+            className="p-2 bg-white/10 rounded-lg backdrop-blur-sm border border-white/10"
+          >
+            <FaLaptopCode className="w-6 h-6 text-white" />
+          </motion.div>
+          <h2 className="text-xl font-bold text-white">
             {project.projectName}
           </h2>
         </div>
 
-        <div className="flex-1 space-y-3">
-          <div className="flex items-center gap-2 text-gray-600">
-            <FileText size={16} className="text-blue-500" />
+        <div className="flex-1 space-y-3 mb-4">
+          <div className="flex items-center gap-2 text-white/80">
+            <FileText size={16} className="text-blue-300" />
             <span className="text-sm">{project.techStack}</span>
           </div>
 
-          <div className="flex items-center gap-2 text-gray-600">
-            <Wrench size={16} className="text-blue-500" />
+          <div className="flex items-center gap-2 text-white/80">
+            <Wrench size={16} className="text-purple-300" />
             <span className="text-sm">{project.type}</span>
           </div>
         </div>
@@ -76,10 +112,11 @@ function ProjectShowcaseCard({ project, showTooltip, setHovered }) {
             target="_blank"
             rel="noopener noreferrer"
             whileHover={{ scale: 1.05 }}
-            className="mt-4 flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-fuchsia-300 via-purple-400 to-violet-500 text-gray-900 text-sm font-medium border border-blue-100 hover:bg-blue-100"
+            whileTap={{ scale: 0.95 }}
+            className="mt-auto flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-white/10 hover:bg-white/20 text-white text-sm font-medium border border-white/20 hover:border-white/30 backdrop-blur-sm transition-all"
           >
             <span>View Project</span>
-            <ExternalLink size={16} />
+            <ExternalLink size={16} className="text-pink-200" />
           </motion.a>
         )}
       </div>
@@ -101,65 +138,92 @@ export default function ProjectList() {
   });
 
   return (
-    <div className="min-h-screen w-full bg-gradient-to-r from-amber-100 via-orange-100 to-pink-100 p-6">
-      <div className="max-w-6xl mx-auto mb-12">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8">
+    <div className="min-h-screen w-full mt-15 bg-gradient-to-br from-gray-900 via-purple-900 to-violet-800 p-6 md:p-10">
+      <div className="max-w-6xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mb-12 text-center"
+        >
+          <h1 className="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-pink-200 mb-2">
+            My Projects
+          </h1>
+          <p className="text-gray-300 max-w-2xl mx-auto">
+            A collection of my work showcasing different technologies and skills
+          </p>
+        </motion.div>
+
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="flex flex-col md:flex-row justify-between items-center gap-6 mb-8"
+        >
           <div className="relative w-full md:w-96">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
+            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-white" />
+            <motion.input
               type="text"
               placeholder="Search projects..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200"
+              whileFocus={{ scale: 1.02 }}
+              className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-800/50 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-pink-500 border border-gray-700 backdrop-blur-sm"
             />
           </div>
           
           <div className="flex flex-wrap gap-3 w-full md:w-auto">
             <div className="relative flex-1 min-w-[180px]">
               <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <select
+              <motion.select
                 value={filterType}
                 onChange={(e) => setFilterType(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200"
+                whileHover={{ scale: 1.02 }}
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-800/50 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 border border-gray-700 backdrop-blur-sm"
               >
-                {uniqueTypes.map((t) => (
-                  <option key={t} value={t}>{t}</option>
+                                {uniqueTypes.map((type) => (
+                  <option key={type} value={type}>
+                    {type}
+                  </option>
                 ))}
-              </select>
+              </motion.select>
             </div>
-            
+
             <div className="relative flex-1 min-w-[180px]">
               <FaFilter className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-              <select
+              <motion.select
                 value={filterTech}
                 onChange={(e) => setFilterTech(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 rounded-xl bg-white text-gray-800 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 border border-gray-200"
+                whileHover={{ scale: 1.02 }}
+                className="w-full pl-10 pr-4 py-3 rounded-xl bg-gray-800/50 text-white appearance-none focus:outline-none focus:ring-2 focus:ring-pink-500 border border-gray-700 backdrop-blur-sm"
               >
-                {uniqueTechs.map((t) => (
-                  <option key={t} value={t}>{t}</option>
+                {uniqueTechs.map((tech) => (
+                  <option key={tech} value={tech}>
+                    {tech}
+                  </option>
                 ))}
-              </select>
+              </motion.select>
             </div>
           </div>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filtered.length === 0 ? (
-            <div className="col-span-full py-12 text-center">
-              <p className="text-gray-500 text-lg">No projects found matching your criteria</p>
-            </div>
-          ) : (
-            filtered.map((p, idx) => (
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          <AnimatePresence>
+            {filtered.map((project) => (
               <ProjectShowcaseCard
-                key={idx}
-                project={p}
-                showTooltip={hovered === p.projectName}
+                key={project.projectName}
+                project={project}
+                showTooltip={hovered === project.projectName}
                 setHovered={setHovered}
               />
-            ))
-          )}
-        </div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );

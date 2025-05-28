@@ -17,17 +17,15 @@ export default function App() {
       <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors">
         <Navbar />
 
-        <div className="pt-15">
+        <div>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<AboutMe />} />
             <Route path="/education" element={<EducationSection />} />
             <Route path="/skills" element={<SkillsSection />} />
             <Route path="/guide" element={<Guide />} />
-
             <Route path="/projects" element={<ProjectShowcaseCard />} />
             <Route path="/work" element={<Work />} />
-
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
