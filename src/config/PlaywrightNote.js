@@ -1,8 +1,8 @@
-import { SiPlaywright, SiTestcafe } from 'react-icons/si';
+import { SiTestcafe } from 'react-icons/si';
 
 const PlaywrightNote = () => {
   return (
-    <div className="max-w-3xl mx-auto p-6 my-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-l-4 border-purple-500">
+    <div className="max-w-9xl mx-auto p-6 my-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-l-4 border-purple-500">
       <div className="flex items-start">
         <div className="flex-shrink-0 p-3 bg-purple-100 dark:bg-purple-900/50 rounded-lg">
           <SiTestcafe className="h-8 w-8 text-purple-600 dark:text-purple-400" />

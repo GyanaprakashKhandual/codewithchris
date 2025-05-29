@@ -2,7 +2,7 @@ import { SiSelenium } from 'react-icons/si';
 
 const SeleniumNote = () => {
   return (
-    <div className="max-w-3xl mx-auto p-6 my-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-l-4 border-emerald-500">
+    <div className="max-w-9xl mx-auto p-6 my-8 bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden border-l-4 border-emerald-500">
       <div className="flex items-start">
         <div className="flex-shrink-0 p-3 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg">
           <SiSelenium className="h-8 w-8 text-emerald-600 dark:text-emerald-400" />
