@@ -20,11 +20,53 @@ const projects = [
   },
   {
     projectName: 'CaffeTest',
-    techStack: 'Next And Express',
+    techStack: 'Next And Express And MongoDB',
     type: 'Frontend And Backend',
     description: 'A full-stack app for managing bugs and test cases.',
     projectLink: 'https://caffetest.vercel.app/',
   },
+  {
+    projectName: 'Portfolio',
+    techStack: 'Next.js',
+    type: 'Frontend',
+    description: 'My personal portfolio showcasing my skills and projects.',
+    projectLink: 'https://codewithchris.vercel.app/',
+  },
+  {
+    projectName: 'Code Editor',
+    techStack: 'Manual Testing',
+    type: 'Functional Testing',
+    description: 'A detailed manual test report for a code editor application.',
+    projectLink: 'https://drive.google.com/drive/folders/1ZCGCKbvo-hdBo-i4y5BWnsiN-p1B9qds?usp=drive_link',
+  },
+  {
+    projectName: 'OrangeHRM',
+    techStack: 'Cypress, JMeter',
+    type: 'Automation Testing',
+    description: 'An automation testing project using Cypress and JMeter.',
+    projectLink: 'https://drive.google.com/drive/folders/1V2L_KY-4kjlyKEC-xQo72c2ro9BRye_S?usp=drive_link',
+  },
+  {
+    projectName: 'E-Commerce Application',
+    techStack: 'Selenium, K6, Rest Assured',
+    type: 'Automation Testing',
+    description: 'An Automation testing project for testing functional, load and APIs',
+    projectLink: 'https://github.com/GyanaprakashKhandual/Pioneers-Wine'
+  },
+  {
+    projectName: 'K6 Report Generator',
+    techStack: 'HTML, CSS, Java Script',
+    type: 'Frontend',
+    description: 'A website who help to generate the test report from the test result of K6',
+    projectLink: 'https://k6reportgenerator.vercel.app/'
+  },
+  {
+    projectName: 'Bug Keeper',
+    techStack: 'Next JS, Tailwind CSS, Framer Motion',
+    type: 'Frontend',
+    description: 'Help to store and visualize the bugs',
+    projectLink: 'https://bugkepper.vercel.app/'
+  }
 ];
 
 const uniqueTypes = ['All', ...new Set(projects.map((p) => p.type))];
