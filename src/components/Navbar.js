@@ -42,7 +42,7 @@ export default function Navbar() {
         onClick={() => navigate('/')}
       >
         <Sparkles className="text-amber-600 dark:text-amber-300 w-6 h-6" />
-        <span className="text-xl font-bold text-amber-800 dark:text-amber-100">Imagine the Unimagineable</span>
+        <span className="text-xl font-bold text-amber-800 dark:text-amber-100">Imagine the Unimaginable</span>
       </motion.div>
 
       {/* Desktop Navigation - Summer Style Links */}
