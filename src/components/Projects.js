@@ -66,6 +66,13 @@ const projects = [
     type: 'Frontend',
     description: 'Help to store and visualize the bugs',
     projectLink: 'https://bugkepper.vercel.app/'
+  },
+  {
+    projectName: 'SpaceX',
+    techStack: 'Three.js',
+    type: 'Frontend',
+    description: 'A SpaceX website clone that displays information about SpaceX launches and missions.',
+    projectLink: 'https://space-three-eosin.vercel.app/'
   }
 ];
 
